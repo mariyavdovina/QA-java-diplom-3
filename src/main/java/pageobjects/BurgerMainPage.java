@@ -38,14 +38,14 @@ public class BurgerMainPage {
         driver.findElement(By.xpath("//button[text()='Войти']")).click();
     }
     public boolean isLoggedIn(){
-        String isLogin = new WebDriverWait(driver, Duration.ofSeconds(8))
+        String isLogin = new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Соберите бургер']"))).getText();
         return isLogin.equals("Соберите бургер");
     }
-    public String returnLoadResult(By element){
+/*    public String returnLoadResult(By element){
         return new WebDriverWait(driver, Duration.ofSeconds(8))
                 .until(ExpectedConditions.visibilityOfElementLocated(element)).getText();
-    }
+    }*/
 
     public WebDriver getDriver() {
         return driver;

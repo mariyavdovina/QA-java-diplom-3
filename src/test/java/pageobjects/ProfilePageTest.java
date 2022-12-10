@@ -54,6 +54,6 @@ public class ProfilePageTest {
     public void tearDown() throws InterruptedException {
         driver.quit();
         userClient.delete(accessToken);
-        Thread.sleep(300);
+        Thread.sleep(800);
     }
 }

@@ -5,11 +5,13 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class MainPageSectionsTest {
     private static WebDriver driver ;
@@ -23,22 +25,23 @@ public class MainPageSectionsTest {
     }
     @Test
     @Description("All product sections are available on main page")
-    public void testMainPageSections(){
+    public void testMainPageSections() throws InterruptedException {
         driver.findElement(objBurgerMainPage.getSauce()).click();
-        WebElement element1 = driver.findElement(objBurgerMainPage.getSauceSection());
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element1);
-        Boolean sauceVisible = driver.findElement(objBurgerMainPage.getSauceSection()).isDisplayed();
-        Assert.assertTrue(sauceVisible);
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOfElementLocated(objBurgerMainPage.getSauceSection()));
+        //Thread.sleep(3000);
+        //WebElement element1 = driver.findElement(objBurgerMainPage.getSauceSection());
+        //((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element1);
+        Assert.assertTrue(driver.findElement(objBurgerMainPage.getSauceSection()).isDisplayed());
         driver.findElement(objBurgerMainPage.getBun()).click();
-        WebElement element2 = driver.findElement(objBurgerMainPage.getBunSection());
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element2);
-        Boolean bunVisible = driver.findElement(objBurgerMainPage.getBunSection()).isDisplayed();
-        Assert.assertTrue(bunVisible);
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOfElementLocated(objBurgerMainPage.getBunSection()));
+        //Thread.sleep(3000);
+        Assert.assertTrue(driver.findElement(objBurgerMainPage.getBunSection()).isDisplayed());
         driver.findElement(objBurgerMainPage.getFiller()).click();
-        WebElement element3 = driver.findElement(objBurgerMainPage.getFillerSection());
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element3);
-        Boolean fillerVisible = driver.findElement(objBurgerMainPage.getFillerSection()).isDisplayed();
-        Assert.assertTrue(fillerVisible);
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOfElementLocated(objBurgerMainPage.getFillerSection()));
+        Assert.assertTrue(driver.findElement(objBurgerMainPage.getFillerSection()).isDisplayed());
     }
     @After
     public void tearDown(){
