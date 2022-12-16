@@ -14,7 +14,6 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import providers.UserProvider;
-
 import java.util.List;
 
 import static org.apache.http.HttpStatus.SC_OK;

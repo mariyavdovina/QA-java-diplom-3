@@ -15,7 +15,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import providers.UserProvider;
-
 import static org.apache.http.HttpStatus.SC_OK;
 
 @RunWith(Parameterized.class)
@@ -28,7 +27,6 @@ public class BurgerMainPageTest {
     private static UserClient userClient;
     private static User user;
     private static String accessToken;
-
     @Before
     public void setUp(){
         objBurgerMainPage = new BurgerMainPage(driver);
@@ -46,8 +44,8 @@ public class BurgerMainPageTest {
         userClient = new UserClient();
         user = UserProvider.getRandom();
         return new Object[][]{
-                {tmp.getProfile(), user.getEmail(), user.getPassword()},
-                {tmp.getLoginButton(), user.getEmail(), user.getPassword()}
+                {tmp.profile, user.getEmail(), user.getPassword()},
+                {tmp.loginButton, user.getEmail(), user.getPassword()}
         };
     }
     @Test

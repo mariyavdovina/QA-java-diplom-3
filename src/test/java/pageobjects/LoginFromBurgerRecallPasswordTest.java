@@ -9,38 +9,44 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import providers.UserProvider;
+
+import java.time.Duration;
 
 import static org.apache.http.HttpStatus.SC_OK;
 
-public class BurgerLoginFromRegisterPageTest {
+public class LoginFromBurgerRecallPasswordTest {
     private WebDriver driver;
-    private BurgerRegisterPage objBurgerRegisterPage;
+    private BurgerRecallPasswordPage objBurgerRecallPasswordPage;
     private UserClient userClient;
     private User user;
     private String accessToken;
-
     @Before
-    public void setUp(){
+    public void setUp() {
         driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/register");
-        objBurgerRegisterPage = new BurgerRegisterPage(driver);
+        driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
+        objBurgerRecallPasswordPage = new BurgerRecallPasswordPage(driver);
         userClient = new UserClient();
         user = UserProvider.getRandom();
+    }
+    @Test
+    @Description("Check login is available from restore password page")
+    public void testLoginPossible(){
         ValidatableResponse responseCreate = userClient.create(user);
         responseCreate.assertThat().statusCode(SC_OK);
         ValidatableResponse responseLogin = userClient.login(Credentials.from(user));
         int statusCode = responseLogin.extract().statusCode();
         accessToken = responseLogin.extract().path("accessToken").toString().substring(6).trim();
         Assert.assertEquals(SC_OK, statusCode);
-    }
-    @Test
-    @Description("Check login is available from register page")
-    public void testLoginPossible(){
-        objBurgerRegisterPage.login(objBurgerRegisterPage.getLoginButton(),user.getEmail(),user.getPassword());
-        Assert.assertTrue(objBurgerRegisterPage.isLoggedIn());
+        objBurgerRecallPasswordPage.login(user.getEmail(),user.getPassword());
+        String isLogin = new WebDriverWait(driver, Duration.ofSeconds(8))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Соберите бургер']"))).getText();
+        Assert.assertEquals("Соберите бургер",isLogin);
     }
     @After
     public void tearDown() throws InterruptedException {

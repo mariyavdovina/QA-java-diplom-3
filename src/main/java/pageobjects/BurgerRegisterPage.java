@@ -8,13 +8,12 @@ import java.time.Duration;
 
 public class BurgerRegisterPage {
     //Predefined user credentials "name103", "name103@email.domain", "123456"
-    private WebDriver driver;
-    private By firstNameField = By.xpath("//fieldset[1]/div/div/input");
-    private By emailField = By.xpath("//fieldset[2]/div/div/input");
-    private By passwordField = By.xpath("//fieldset[3]/div/div/input");
-    private By registerButton = By.xpath("//button[text()='Зарегистрироваться']");
-    private By loginButton = By.xpath("//a[text()='Войти']");
-    private By userHome = By.xpath("//div/header/nav/a");
+    public WebDriver driver;
+    public By firstNameField = By.xpath("//fieldset[1]/div/div/input");
+    public By emailField = By.xpath("//fieldset[2]/div/div/input");
+    public By passwordField = By.xpath("//fieldset[3]/div/div/input");
+    public By registerButton = By.xpath("//button[text()='Зарегистрироваться']");
+    public By loginButton = By.xpath("//a[text()='Войти']");
     public String waitForResultVisibility(String result) {
         return new WebDriverWait(driver, Duration.ofSeconds(8))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//*[text()='%s']", result)))).getText();
@@ -37,24 +36,6 @@ public class BurgerRegisterPage {
         typeEmail(email);
         typePassword(password);
         pressRegister();
-    }
-    public By getFirstNameField() {
-        return firstNameField;
-    }
-    public By getRegisterButton() {
-        return registerButton;
-    }
-    public By getEmailField() {
-        return emailField;
-    }
-    public By getPasswordField() {
-        return passwordField;
-    }
-    public By getUserHome() {
-        return userHome;
-    }
-    public By getLoginButton() {
-        return loginButton;
     }
     public BurgerRegisterPage(WebDriver driver){
         this.driver = driver;

@@ -6,11 +6,9 @@ import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
-
 import static io.restassured.RestAssured.given;
 
 public class UserClient extends Client {
-
     private static final String PATH = "api/auth/";
     @Step("User creation")
     public ValidatableResponse create(User user) {
@@ -49,7 +47,6 @@ public class UserClient extends Client {
                 .patch(PATH + "user/")
                 .then();
     }
-
     @Step("User login")
     public ValidatableResponse login(Credentials credentials) {
         return given()
@@ -59,10 +56,8 @@ public class UserClient extends Client {
                 .post(PATH + "login/")
                 .then();
     }
-
     @Before
     public void setUp() {
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site/";
     }
-
 }

@@ -26,31 +26,38 @@ public class ProfileControlsTest {
     private UserClient userClient;
     private User user;
     private String accessToken;
+    private int statusCode;
+    private ValidatableResponse responseLogin;
+    private ValidatableResponse responseCreate;
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         driver = new ChromeDriver();
         driver.get("https://stellarburgers.nomoreparties.site/");
         objBurgerMainPage = new BurgerMainPage(driver);
         userClient = new UserClient();
         user = UserProvider.getRandom();
-        ValidatableResponse responseCreate = userClient.create(user);
+        responseCreate = userClient.create(user);
+        Thread.sleep(300);
         responseCreate.assertThat().statusCode(SC_OK);
-        ValidatableResponse responseLogin = userClient.login(Credentials.from(user));
-        int statusCode = responseLogin.extract().statusCode();
-        accessToken = responseLogin.extract().path("accessToken").toString().substring(6).trim();
+        Thread.sleep(300);
+        responseLogin = userClient.login(Credentials.from(user));
+        Thread.sleep(300);
+        statusCode = responseLogin.extract().statusCode();
+        Thread.sleep(300);
         Assert.assertEquals(SC_OK, statusCode);
-        objBurgerMainPage.login(objBurgerMainPage.getLoginButton(),user.getEmail(),user.getPassword());
-        Assert.assertTrue(objBurgerMainPage.isLoggedIn());
-        driver.findElement(objBurgerMainPage.getProfile()).click();
-        new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Профиль']")));
-        Assert.assertEquals("Профиль",driver.findElement(By.xpath("//*[text()='Профиль']")).getText());
+        accessToken = responseLogin.extract().path("accessToken").toString().substring(6).trim();
     }
 
     @Test
     @Description("Constructor section available")
     public void constructorCanBeOpened(){
-        driver.findElement(objBurgerMainPage.getConstructor()).click();
+        objBurgerMainPage.login(objBurgerMainPage.loginButton,user.getEmail(),user.getPassword());
+        Assert.assertTrue(objBurgerMainPage.isLoggedIn());
+        driver.findElement(objBurgerMainPage.profile).click();
+        new WebDriverWait(driver, Duration.ofSeconds(8))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Профиль']")));
+        Assert.assertEquals("Профиль",driver.findElement(By.xpath("//*[text()='Профиль']")).getText());
+        driver.findElement(objBurgerMainPage.constructor).click();
         String isOpened = new WebDriverWait(driver, Duration.ofSeconds(8))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Соберите бургер']"))).getText();
         Assert.assertEquals("Соберите бургер",isOpened);
@@ -58,7 +65,13 @@ public class ProfileControlsTest {
     @Test
     @Description("Logo is clickable and leads to main page")
     public void mainPageCanBeOpened(){
-        driver.findElement(objBurgerMainPage.getLogo()).click();
+        objBurgerMainPage.login(objBurgerMainPage.loginButton,user.getEmail(),user.getPassword());
+        Assert.assertTrue(objBurgerMainPage.isLoggedIn());
+        driver.findElement(objBurgerMainPage.profile).click();
+        new WebDriverWait(driver, Duration.ofSeconds(8))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Профиль']")));
+        Assert.assertEquals("Профиль",driver.findElement(By.xpath("//*[text()='Профиль']")).getText());
+        driver.findElement(objBurgerMainPage.logo).click();
         String isOpened = new WebDriverWait(driver, Duration.ofSeconds(8))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Соберите бургер']"))).getText();
         Assert.assertEquals("Соберите бургер",isOpened);
@@ -66,7 +79,13 @@ public class ProfileControlsTest {
     @Test
     @Description("Logout is possible on profile page")
     public void logoutPossible(){
-        driver.findElement(objBurgerMainPage.getLogout()).click();
+        objBurgerMainPage.login(objBurgerMainPage.loginButton,user.getEmail(),user.getPassword());
+        Assert.assertTrue(objBurgerMainPage.isLoggedIn());
+        driver.findElement(objBurgerMainPage.profile).click();
+        new WebDriverWait(driver, Duration.ofSeconds(8))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Профиль']")));
+        Assert.assertEquals("Профиль",driver.findElement(By.xpath("//*[text()='Профиль']")).getText());
+        driver.findElement(objBurgerMainPage.logout).click();
         String isOpened = new WebDriverWait(driver, Duration.ofSeconds(8))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Вход']"))).getText();
         Assert.assertEquals("Вход",isOpened);

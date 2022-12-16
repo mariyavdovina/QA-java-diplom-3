@@ -6,11 +6,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 public class BurgerRecallPasswordPage {
-    private WebDriver driver;
+    public WebDriver driver;
     public BurgerRecallPasswordPage(WebDriver driver){
         this.driver = driver;
     }
-    private By loginButton = By.xpath("//a[text()='Войти']");
+    public By loginButton = By.xpath("//a[text()='Войти']");
     public void login(String email, String pwd){
         driver.findElement(loginButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(8))
@@ -18,9 +18,5 @@ public class BurgerRecallPasswordPage {
         driver.findElement(By.xpath("//fieldset[1]/div/div/input")).sendKeys(email);
         driver.findElement(By.xpath("//fieldset[2]/div/div/input")).sendKeys(pwd);
         driver.findElement(By.xpath("//button[text()='Войти']")).click();
-    }
-
-    public By getLoginButton() {
-        return loginButton;
     }
 }
