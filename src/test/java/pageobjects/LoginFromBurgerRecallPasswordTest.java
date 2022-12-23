@@ -44,9 +44,7 @@ public class LoginFromBurgerRecallPasswordTest {
         accessToken = responseLogin.extract().path("accessToken").toString().substring(6).trim();
         Assert.assertEquals(SC_OK, statusCode);
         objBurgerRecallPasswordPage.login(user.getEmail(),user.getPassword());
-        String isLogin = new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Соберите бургер']"))).getText();
-        Assert.assertEquals("Соберите бургер",isLogin);
+        Assert.assertEquals("Соберите бургер",  objBurgerRecallPasswordPage.getConstructorOpenedHeader());
     }
     @After
     public void tearDown() throws InterruptedException {

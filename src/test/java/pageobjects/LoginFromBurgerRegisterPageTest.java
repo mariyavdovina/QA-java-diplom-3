@@ -43,7 +43,7 @@ public class LoginFromBurgerRegisterPageTest {
         statusCode = responseLogin.extract().statusCode();
         accessToken = responseLogin.extract().path("accessToken").toString().substring(6).trim();
         Assert.assertEquals(SC_OK, statusCode);
-        objBurgerRegisterPage.login(objBurgerRegisterPage.loginButton,user.getEmail(),user.getPassword());
+        objBurgerRegisterPage.login(objBurgerRegisterPage.getLoginButton(),user.getEmail(),user.getPassword());
         Assert.assertTrue(objBurgerRegisterPage.isLoggedIn());
     }
     @After

@@ -9,14 +9,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import providers.UserProvider;
-
-import java.time.Duration;
 
 import static org.apache.http.HttpStatus.SC_OK;
 
@@ -51,44 +46,32 @@ public class ProfileControlsTest {
     @Test
     @Description("Constructor section available")
     public void constructorCanBeOpened(){
-        objBurgerMainPage.login(objBurgerMainPage.loginButton,user.getEmail(),user.getPassword());
+        objBurgerMainPage.login(objBurgerMainPage.getLoginButton(),user.getEmail(),user.getPassword());
         Assert.assertTrue(objBurgerMainPage.isLoggedIn());
-        driver.findElement(objBurgerMainPage.profile).click();
-        new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Профиль']")));
-        Assert.assertEquals("Профиль",driver.findElement(By.xpath("//*[text()='Профиль']")).getText());
-        driver.findElement(objBurgerMainPage.constructor).click();
-        String isOpened = new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Соберите бургер']"))).getText();
-        Assert.assertEquals("Соберите бургер",isOpened);
+        objBurgerMainPage.openProfile();
+        Assert.assertEquals("Профиль",objBurgerMainPage.getProfileOpenedHeader());
+        objBurgerMainPage.openConstructor();
+        Assert.assertEquals("Соберите бургер",objBurgerMainPage.getConstructorOpenedHeader());
     }
     @Test
     @Description("Logo is clickable and leads to main page")
     public void mainPageCanBeOpened(){
-        objBurgerMainPage.login(objBurgerMainPage.loginButton,user.getEmail(),user.getPassword());
+        objBurgerMainPage.login(objBurgerMainPage.getLoginButton(),user.getEmail(),user.getPassword());
         Assert.assertTrue(objBurgerMainPage.isLoggedIn());
-        driver.findElement(objBurgerMainPage.profile).click();
-        new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Профиль']")));
-        Assert.assertEquals("Профиль",driver.findElement(By.xpath("//*[text()='Профиль']")).getText());
-        driver.findElement(objBurgerMainPage.logo).click();
-        String isOpened = new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Соберите бургер']"))).getText();
-        Assert.assertEquals("Соберите бургер",isOpened);
+        objBurgerMainPage.openProfile();
+        Assert.assertEquals("Профиль",objBurgerMainPage.getProfileOpenedHeader());
+        objBurgerMainPage.openMainPage();
+        Assert.assertEquals("Соберите бургер",objBurgerMainPage.getConstructorOpenedHeader());
     }
     @Test
     @Description("Logout is possible on profile page")
     public void logoutPossible(){
-        objBurgerMainPage.login(objBurgerMainPage.loginButton,user.getEmail(),user.getPassword());
+        objBurgerMainPage.login(objBurgerMainPage.getLoginButton(),user.getEmail(),user.getPassword());
         Assert.assertTrue(objBurgerMainPage.isLoggedIn());
-        driver.findElement(objBurgerMainPage.profile).click();
-        new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Профиль']")));
-        Assert.assertEquals("Профиль",driver.findElement(By.xpath("//*[text()='Профиль']")).getText());
-        driver.findElement(objBurgerMainPage.logout).click();
-        String isOpened = new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Вход']"))).getText();
-        Assert.assertEquals("Вход",isOpened);
+        objBurgerMainPage.openProfile();
+        Assert.assertEquals("Профиль",objBurgerMainPage.getProfileOpenedHeader());
+        objBurgerMainPage.logoutMainPage();
+        Assert.assertEquals("Вход",objBurgerMainPage.logoutHeader());
     }
     @After
     public void tearDown() throws InterruptedException {

@@ -44,8 +44,8 @@ public class BurgerMainPageTest {
         userClient = new UserClient();
         user = UserProvider.getRandom();
         return new Object[][]{
-                {tmp.profile, user.getEmail(), user.getPassword()},
-                {tmp.loginButton, user.getEmail(), user.getPassword()}
+                {tmp.getProfile(), user.getEmail(), user.getPassword()},
+                {tmp.getLoginButton(), user.getEmail(), user.getPassword()}
         };
     }
     @Test

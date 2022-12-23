@@ -9,13 +9,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import providers.UserProvider;
-import java.time.Duration;
+
 import static org.apache.http.HttpStatus.SC_OK;
 
 public class ProfilePageTest {
@@ -43,12 +40,10 @@ public class ProfilePageTest {
         int statusCode = responseLogin.extract().statusCode();
         accessToken = responseLogin.extract().path("accessToken").toString().substring(6).trim();
         Assert.assertEquals(SC_OK, statusCode);
-        objBurgerMainPage.login(objBurgerMainPage.loginButton,user.getEmail(),user.getPassword());
+        objBurgerMainPage.login(objBurgerMainPage.getLoginButton(),user.getEmail(),user.getPassword());
         Assert.assertTrue(objBurgerMainPage.isLoggedIn());
-        driver.findElement(objBurgerMainPage.profile).click();
-        String isOpened = new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Профиль']"))).getText();
-        Assert.assertEquals("Профиль",isOpened);
+        objBurgerMainPage.openProfile();
+        Assert.assertEquals("Профиль",objBurgerMainPage.getProfileOpenedHeader());
     }
     @After
     public void tearDown() throws InterruptedException {
