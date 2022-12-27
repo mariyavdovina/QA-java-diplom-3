@@ -1,11 +1,12 @@
 package pageobjects
 
+import org.openqa.selenium.By
 import org.openqa.selenium.By.xpath
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.PageFactory
 
 class BurgerRecallPasswordPage(private val driver: WebDriver) : Page(driver) {
-    val loginButton = xpath("//a[text()='Войти']")
+    val loginButton: By = xpath("//a[text()='Войти']")
     init {
         PageFactory.initElements(driver, this)
     }

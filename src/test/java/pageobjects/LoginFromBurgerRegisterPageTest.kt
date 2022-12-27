@@ -3,6 +3,7 @@ package pageobjects
 import clients.UserClient
 import io.restassured.response.ValidatableResponse
 import jdk.jfr.Description
+import models.Constants.Companion.REGISTER
 import models.Credentials.Companion.from
 import models.User
 import org.apache.http.HttpStatus.SC_OK
@@ -27,7 +28,7 @@ class LoginFromBurgerRegisterPageTest {
     @Before
     fun setUp(){
         driver = ChromeDriver()
-        driver.get("https://stellarburgers.nomoreparties.site/register")
+        driver.get(REGISTER)
         page = BurgerRegisterPage(driver)
         userClient = UserClient()
         user = UserProvider.getRandom()

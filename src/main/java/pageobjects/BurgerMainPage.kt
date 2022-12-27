@@ -8,12 +8,12 @@ import org.openqa.selenium.support.PageFactory
 
 class BurgerMainPage(private val driver: WebDriver) : Page(driver) {
     companion object{
-        val loginButtonAuth = xpath("//button[text()='Войти в аккаунт']")
-        val profileButtonAuth = xpath("//div/header/nav/a")
+        val loginButtonAuth: By = xpath("//button[text()='Войти в аккаунт']")
+        val profileButtonAuth: By = xpath("//div/header/nav/a")
     }
 
-    val loginButton = xpath("//button[text()='Войти в аккаунт']")
-    val profile = xpath("//div/header/nav/a")
+    val loginButton: By = xpath("//button[text()='Войти в аккаунт']")
+    val profile: By = xpath("//div/header/nav/a")
     private val sectionNames = listOf("Булки", "Соусы", "Начинки")
     private val sectionCaptions = listOf(xpath("//*[text()='Булки']"),
             xpath("//*[text()='Соусы']"),

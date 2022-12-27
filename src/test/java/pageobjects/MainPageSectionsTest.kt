@@ -1,5 +1,6 @@
 package pageobjects
 
+import models.Constants.Companion.MAIN
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -13,7 +14,7 @@ class MainPageSectionsTest {
     @Before
     fun setUp() {
         driver = ChromeDriver()
-        driver.get("https://stellarburgers.nomoreparties.site/")
+        driver.get(MAIN)
         page = BurgerMainPage(driver)
     }
 

@@ -3,6 +3,7 @@ package pageobjects
 import clients.UserClient
 import io.restassured.response.ValidatableResponse
 import jdk.jfr.Description
+import models.Constants.Companion.MAIN
 import models.Credentials.Companion.from
 import models.User
 import org.apache.http.HttpStatus.SC_OK
@@ -17,11 +18,12 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import providers.UserProvider
 
+
 @RunWith(Parameterized::class)
 class BurgerMainPageTest(private var button: By, private var name: String, private var pwd: String) {
     init {
         driver = ChromeDriver()
-        driver.get("https://stellarburgers.nomoreparties.site/")
+        driver.get(MAIN)
     }
     @Before
     fun setUp() {

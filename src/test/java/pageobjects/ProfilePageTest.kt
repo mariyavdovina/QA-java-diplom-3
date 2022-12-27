@@ -3,6 +3,7 @@ package pageobjects
 import clients.UserClient
 import io.qameta.allure.Description
 import io.restassured.response.ValidatableResponse
+import models.Constants.Companion.MAIN
 import models.Credentials
 import models.User
 import org.apache.http.HttpStatus.SC_OK
@@ -24,7 +25,7 @@ class ProfilePageTest {
     @Before
     fun setUp() {
         driver = ChromeDriver()
-        driver.get("https://stellarburgers.nomoreparties.site/")
+        driver.get(MAIN)
         page = BurgerMainPage(driver)
 
     }

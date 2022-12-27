@@ -10,7 +10,7 @@ class BurgerRegisterPage(private val driver: WebDriver) : Page(driver){
     private val emailField = xpath("//fieldset[2]/div/div/input")
     private val passwordField = xpath("//fieldset[3]/div/div/input")
     private val registerButton = xpath("//button[text()='Зарегистрироваться']")
-    val loginButton = xpath("//a[text()='Войти']")
+    val loginButton: By = xpath("//a[text()='Войти']")
     init {
         PageFactory.initElements(driver, this)
     }
@@ -18,19 +18,19 @@ class BurgerRegisterPage(private val driver: WebDriver) : Page(driver){
     fun waitForResultVisibility(result: String): String {
         return wait(xpath(String.format("//*[text()='%s']", result))).text
     }
-    fun typeFirstName(firstName: String) {
+    private fun typeFirstName(firstName: String) {
         driver.findElement(firstNameField).sendKeys(firstName)
     }
 
-    fun typeEmail(email: String) {
+    private fun typeEmail(email: String) {
         driver.findElement(emailField).sendKeys(email)
     }
 
-    fun typePassword(password: String) {
+    private fun typePassword(password: String) {
         driver.findElement(passwordField).sendKeys(password)
     }
 
-    fun pressRegister() {
+    private fun pressRegister() {
         driver.findElement(registerButton).click()
     }
     fun register(firstName: String, email: String, password: String) {

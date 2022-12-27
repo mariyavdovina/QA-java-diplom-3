@@ -3,6 +3,7 @@ package clients
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.http.ContentType
 import io.restassured.specification.RequestSpecification
+import models.Constants.Companion.MAIN
 
 open class Client {
     protected val spec: RequestSpecification
@@ -12,6 +13,6 @@ open class Client {
                 .build()
 
     companion object {
-        private const val BASE_URL = "https://stellarburgers.nomoreparties.site/"
+        private const val BASE_URL = MAIN
     }
 }

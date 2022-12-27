@@ -3,6 +3,7 @@ package pageobjects
 import clients.UserClient
 import io.restassured.response.ValidatableResponse
 import jdk.jfr.Description
+import models.Constants.Companion.RECALL
 import models.Credentials.Companion.from
 import models.User
 import org.apache.http.HttpStatus.SC_OK
@@ -14,6 +15,8 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import providers.UserProvider
 
+
+
 class LoginFromBurgerRecallPasswordTest {
     private lateinit var driver: WebDriver
     private lateinit var page: BurgerRecallPasswordPage
@@ -24,7 +27,7 @@ class LoginFromBurgerRecallPasswordTest {
     @Before
     fun setUp() {
         driver = ChromeDriver()
-        driver.get("https://stellarburgers.nomoreparties.site/forgot-password")
+        driver.get(RECALL)
         page = BurgerRecallPasswordPage(driver)
         userClient = UserClient()
         user = UserProvider.getRandom()
